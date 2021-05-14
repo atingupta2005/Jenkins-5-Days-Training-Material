@@ -1,0 +1,10 @@
+Presentations-PPT
+**/*.log
+**/*.pyc
+**/*.class
+**/*Trainer*
+**/*trainer*
+Recycled
+Recycled/*
+**/Recycled
+**/Recycled/*
