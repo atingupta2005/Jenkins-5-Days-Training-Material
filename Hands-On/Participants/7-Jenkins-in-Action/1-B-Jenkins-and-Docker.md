@@ -2,6 +2,9 @@
  - Learn how to execute job on remote machine
 
 ## Docker + Jenkins + SSH
+ - Clone Project
+  - git clone https://github.com/atingupta2005/Jenkins-5-Days-Training-Material
+
  - Create a Docker container
   - Refer:
     - Resources\Dockerfile-CentOS-SSH
