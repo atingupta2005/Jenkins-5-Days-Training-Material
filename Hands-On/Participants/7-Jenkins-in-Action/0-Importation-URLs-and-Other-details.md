@@ -1,10 +1,10 @@
 ### Important URLs and Other details
 - GitHub projects:
   - Console Based – To build jar file
-    - https://GitHub.com/atingupta2005/hello-world-maven
+    - https://github.com/atingupta2005/hello-world-maven
 
   - Web Based to build war file
-    - https://GitHub.com/atingupta2005/java-servlet-hello
+    - https://github.com/atingupta2005/java-servlet-hello
 
 
 ### You VM IP:

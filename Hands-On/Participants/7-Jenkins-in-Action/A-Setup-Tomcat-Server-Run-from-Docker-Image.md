@@ -12,7 +12,7 @@ sudo usermod -aG docker $USER
 
 ## Setup Tomcat Server
 ```
-sudo docker run -dit --name my_tomcat_container --privileged=true -p 8888:8080 -p 221:22 atingupta2005/tomcat_jenkins_ubuntu
+sudo docker run -dit --name my_tomcat_container --privileged=true -p 8888:8080 -p 221:22 --network jenkins-data_net atingupta2005/tomcat_jenkins_ubuntu
 sudo docker exec -it my_tomcat_container bash
 # service ssh start
 # /opt/apache-tomcat-8.5.58/bin/startup.sh

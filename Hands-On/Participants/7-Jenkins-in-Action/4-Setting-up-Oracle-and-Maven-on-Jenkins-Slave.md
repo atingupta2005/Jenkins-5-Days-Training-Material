@@ -1,4 +1,12 @@
 # Setting Up Oracle and Maven on Slave
+## Create a Docker container
+```
+sudo docker run -dit --name my_jenkins_slave_? --privileged=true -p 88??:8080 -p 22?:22 --network jenkins-data_net atingupta2005/tomcat_jenkins_ubuntu
+sudo docker exec -it my_jenkins_slave_? bash
+# service ssh start
+exit
+ssh root@localhost -p 22?	# password 123456
+```
 
 - If required switch to root:
 ```
