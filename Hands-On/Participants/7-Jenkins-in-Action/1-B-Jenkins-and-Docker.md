@@ -9,8 +9,15 @@
   - Refer:
     - Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources
   - Move to directory - Dockerfile-CentOS-SSH
-  - Run command
+  - Copy below 4 files from the directory Dockerfile-CentOS-SSH to ~/jenkins-data
+    - docker-compose.yml
+    - Dockerfile
+    - remote-key
+    - remote-key.pub
 ```
+cd Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/Dockerfile-CentOS-SSH
+cp docker-compose.yml Dockerfile remote-key remote-key.pub ~/jenkins_home
+cd ~/jenkins_home
 docker-compose build
 docker-compose up -d
 docker ls
