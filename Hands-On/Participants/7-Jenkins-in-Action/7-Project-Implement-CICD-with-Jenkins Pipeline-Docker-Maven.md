@@ -14,9 +14,10 @@ exit
 ```
 - Copy Dockerfile and docker-compose.yml to ~/jenkins-data
 ```
- cp Dockerfile ~/jenkins-data/
- cp docker-compose.yml ~/jenkins-data/
- ```
+cp Dockerfile-Jenkins-with-docker ~/jenkins-data/
+cp Dockerfile-remote-host ~/jenkins-data/
+cp docker-compose.yml ~/jenkins-data/
+```
  - Build Docker image
 ```
 cd ~/jenkins-data
