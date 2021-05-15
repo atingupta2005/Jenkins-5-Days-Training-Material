@@ -1,0 +1,25 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/docker
+    build:
+      context: .
+    ports:
+      - "18080:8080"
+    volumes:
+      - $PWD/jenkins_home:/var/jenkins_home
+      - "/var/docker/docker.sock:/var/docker/docker.sock"
+    networks:
+      - net
+  remote_host:
+    container_name: remote-host
+    image: remote-host
+    build:
+      context: centos7
+    volumes:
+      - $PWD/aws-s3.sh:/tmp/script.sh
+    networks:
+      - net
+networks:
+  net:
