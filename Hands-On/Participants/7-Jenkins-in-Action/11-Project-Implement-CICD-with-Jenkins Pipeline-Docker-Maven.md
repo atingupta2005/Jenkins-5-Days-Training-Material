@@ -3,7 +3,7 @@
 ## Learn how to install Docker inside of a Docker Container
  - Docker is currently not installed in jenkins container
 ```
-docker exec -it jenkins bash
+docker exec -it -u root jenkins bash
 docker ps
 exit
 ```
@@ -17,14 +17,14 @@ docker images | grep docker
 - Booting up Docker-Compose
 ```
 docker-compose up -d
-docker exec -it jenkins bash
+docker exec -it -u root jenkins bash
 ```
 - Give permission on docker.sock
 ```
 id
 exit
 sudo chown <id>:<id> /var/docker/docker.sock
-docker exec -it jenkins bash
+docker exec -it -u root jenkins bash
 docker ps
 ```
 

@@ -17,7 +17,7 @@ mkdir jenkins_home
 docker-compose up -d
 docker ps
 docker logs -f jenkins
-docker exec -it jenkins bash
+docker exec -it -u root jenkins bash
 exit
 docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```

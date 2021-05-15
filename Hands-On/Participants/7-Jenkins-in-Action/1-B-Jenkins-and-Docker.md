@@ -17,16 +17,20 @@
 cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/Dockerfile-CentOS-SSH
 cp * ~/jenkins-data
 cd ~/jenkins-data
+chmod 400 remote-key
 docker-compose build
 docker-compose up -d
-docker ls
-docker inspect remote_host
-ssh remote_user@ip-of-remote_host
+docker ps
+docker inspect remote-host
+ssh -i remote-key remote_user@ip-of-remote-host
+  # Password: 1234
+
 exit
 docker cp remote-key jenkins:/tmp/remote-key
-docker exec -it jenkins bash
+docker exec -it -u root jenkins bash
 ls /tmp/
-ssh -i /tmp/remote-key remote-user@remote_host
+chmod 400 /tmp/remote-key
+ssh -i /tmp/remote-key remote_user@remote-host
 exit
 ```
 
@@ -42,14 +46,14 @@ exit
  - Scroll down
  - In section - "SSH Remote hosts" click Add
  - specify details
-  - To add credentials - Home Page\Credentials\Jenkins\Global Credentials\Add Credentials
+  - To add credentials (Optional) - Manage Jenkins\Credentials\Jenkins\Global Credentials\Add Credentials
     - Type: SSH Username with Private Key
     - Enter private key text from remote-key available in "Resources\Dockerfile-CentOS-SSH"
   - Test connection
 
 
 ## Run your Jenkins Job on your Docker container though SSH
-- Create new Job named - "Remote-task"
+- Create new Job named - "Day1-Remote-task"
 - Build section\Execute shell-script on remote host using SSH
 - Command
   ```
@@ -58,8 +62,8 @@ exit
   cat /tmp/remote-file.txt
   ```
 - Build the Job
-- Verify file is created in container - remote_host
+- Verify file is created in container - remote-host
 ```
-docker exec -it remote_host bash
+docker exec -it remote-host bash
 cat /tmp/remote-file.txt
 ```

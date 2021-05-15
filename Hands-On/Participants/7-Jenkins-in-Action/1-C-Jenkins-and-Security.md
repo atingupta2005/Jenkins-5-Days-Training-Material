@@ -1,10 +1,5 @@
 # Jenkins and Security
 
-## Enable/Disable Login in Jenkins
- - Open Manage Jenkins\Configure Global Security
- - Enable/Disable checkbox - "Enable Security"
- - If its disabled anyone can open Jenkins portal without authentication
-
 ## Allow users to Sign Up
  - Open Manage Jenkins\Configure Global Security
  - Enable - "Allow users to sign up"
@@ -33,6 +28,7 @@
  - Open Manage Jenkins\Manage and Assign Roles
  - Open Manage Roles
  - Add a new Role named - readOnly
+ - Assign Read permissions to the role
  - Save
 
 ## Assign Roles to users
