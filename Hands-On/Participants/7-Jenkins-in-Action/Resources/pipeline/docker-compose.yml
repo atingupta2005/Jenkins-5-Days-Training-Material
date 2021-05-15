@@ -10,7 +10,7 @@ services:
       - "8081:8080"
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
-      - "/var/docker/docker.sock:/var/docker/docker.sock"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - net
   remote_host:

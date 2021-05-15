@@ -9,8 +9,8 @@ exit
 ```
  - Let's create a new container having docker in it
  - Move inside Resources\pipleline folder
- ```
- cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+```
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
 ```
 - Copy Dockerfile and docker-compose.yml to ~/jenkins-data
 ```
@@ -27,20 +27,28 @@ docker images | grep docker
 - Booting up Docker-Compose
 ```
 docker-compose up -d
-docker exec -it -u root jenkins bash
+docker exec -it jenkins bash
+id
+exit
 ```
 - Give permission on docker.sock
 ```
-id
-exit
-sudo chown <id>:<id> /var/docker/docker.sock
-docker exec -it -u root jenkins bash
+sudo chown <id>:<id> /var/run/docker.sock
+docker exec -it jenkins bash
 docker ps
 ```
 
-## Define the steps for Pipeline
-- Refer Resource/pipleline/Jenkinsfile
+## Login to Host OS
+```
+cd
+git clone https://github.com/atingupta2005/Jenkins-5-Days-Training-Material
+```
 
+## Define the steps for Pipeline
+- Refer
+```
+cat ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/Jenkinsfile
+```
 
 ## Build: Create a Jar for Maven App using Docker
  - Refer
@@ -53,7 +61,10 @@ docker images
 ```
  - Create Maven container
 ```
-cd Resources/pipeline
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+sudo cp -R java-app ~/
+sudo chown 666 ~/java-app
+cd
 docker run --rm -it -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine sh
 ```
 - Package app manually
@@ -65,6 +76,7 @@ exit
 
 - Modify container creation command to build jar
 ```
+cd
 docker run --rm -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine mvn -B -DskipTests clean package
 ls java-app/target/
 ```
@@ -72,8 +84,17 @@ ls java-app/target/
 ## Build: Write a bash script to automate the Jar creation
 - Refer Resources/pipeline/jenkins/build/build.sh
 - Move to folder Resources/pipeline
+- Create a Jenkins (Pipeline) Project named - pipeline-docker-maven
+- Specify the Git URL:
+  - 
+- Build the project
 - Run command
 ```
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+cp -R jenkins ~/
+cd
+chmod 777 ./jenkins/build/mvn.sh
+mv java-app app
 ./jenkins/build/mvn.sh mvn -B -DskipTests clean package
 ls java-app/target
 ```
