@@ -7,8 +7,8 @@
 
  - Create a Docker container
   - Refer:
-    - Resources\Dockerfile-CentOS-SSH
-  - Move to directory - Resources\Dockerfile-CentOS-SSH
+    - Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources
+  - Move to directory - Dockerfile-CentOS-SSH
   - Run command
 ```
 docker-compose build

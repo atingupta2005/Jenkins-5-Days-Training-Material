@@ -2,15 +2,25 @@
 ## Setup Docker (If required)
 - Refer:
   - [Docker Setup Instructions](../6-Docker/001-Setup Docker.md)
-## Docker
+## Docker (We will use this option)
+- Create Jenkins Home folder which will have jenkins data and the docker-compose.yaml file
 ```
-docker network create jenkins
-docker run -d --name jenkins-docker --privileged -p 8081:8080 -p 50000:50000 jenkins/jenkins:lts-jdk11
-docker logs -f jenkins-docker
-
-docker exec -it jenkins-docker bash
+cd ~
+mkdir jenkins-data
+cd  jenkins-data
+mkdir jenkins_home
+```
+- Create ~/jenkins-data/docker-compose.yml
+  - Refer to the file content from ./Resourses/1-Jenkins-Docker/docker-compose.yaml
+- Build Docker Container
+```
+docker-compose up -d
+docker ps
+docker logs -f jenkins
+docker exec -it jenkins bash
 exit
-docker exec -it jenkins-docker cat /var/jenkins_home/secrets/initialAdminPassword
+docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+```
 
 Browse to http://localhost:8081
 ```
@@ -24,7 +34,6 @@ sudo apt search openjdk
 sudo apt install openjdk-11-jdk
 java -version
 ```
-
 
 - Add the Jenkins Repository (If required)
 ```
