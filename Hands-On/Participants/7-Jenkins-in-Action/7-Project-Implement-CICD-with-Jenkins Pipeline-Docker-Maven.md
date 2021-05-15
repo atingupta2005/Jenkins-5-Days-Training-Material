@@ -62,9 +62,6 @@ docker images
  - Create Maven container
 ```
 cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
-sudo cp -R java-app ~/
-sudo chown 666 ~/java-app
-cd
 docker run --rm -it -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine sh
 ```
 - Package app manually
@@ -76,7 +73,7 @@ exit
 
 - Modify container creation command to build jar
 ```
-cd
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
 docker run --rm -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine mvn -B -DskipTests clean package
 ls java-app/target/
 ```
@@ -84,17 +81,10 @@ ls java-app/target/
 ## Build: Write a bash script to automate the Jar creation
 - Refer Resources/pipeline/jenkins/build/build.sh
 - Move to folder Resources/pipeline
-- Create a Jenkins (Pipeline) Project named - pipeline-docker-maven
-- Specify the Git URL:
-  - 
-- Build the project
 - Run command
 ```
 cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
-cp -R jenkins ~/
-cd
 chmod 777 ./jenkins/build/mvn.sh
-mv java-app app
 ./jenkins/build/mvn.sh mvn -B -DskipTests clean package
 ls java-app/target
 ```
@@ -102,13 +92,17 @@ ls java-app/target
 ## Build: Create a Dockerfile and build an image with Jar
 - Refer Resources/pipeline/jenkins/build/Dockerfile-java
 - Move to folder Resources/pipeline/jenkins/build/
+```
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/jenkins/build/
+```
 - Copy jar file from target directory to Resources/pipeline/jenkins/build/
 ```
-  cp ../../java-app/target/my-app-1.0-SNAPSHOT.jar .
+ls ~/java-app/target
+cp ~/java-app/target/my-app-1.0-SNAPSHOT.jar .
 ```
 - Build Docker image
 ```
-docker build -f Dockerfile-java -t test .
+docker build -f Dockerfile-Java -t test .
 docker images
 ```
 - Verify that the image is there in the image we built. For that we need to create a container to check
@@ -129,7 +123,7 @@ docker logs -f <container id>
   - Resources/pipeline/jenkins/build/docker-compose-build.yml
 - Build image using Docker compose
 ```
-cd ./Resources/pipeline/jenkins/build/
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/jenkins/build/
 export BUILD_TAG=1
 docker-compose -f docker-compose-build.yml build
 ```
@@ -140,10 +134,13 @@ docker-compose -f docker-compose-build.yml build
   - Resources/pipeline/jenkins/build/docker-compose-build.yml
   - Resources/pipeline/jenkins/build/build.sh
 - Move to the Resources/pipeline folder
+```
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/
+```
 - Run build.sh to Build Image
 ```
-cd ./Resources/pipeline/jenkins/build/
-./build.sh
+chmod a+x ./jenkins/build/build.sh
+./jenkins/build/build.sh
 ```
 
 ## Build: Add scripts to the Jenkinsfile
@@ -157,9 +154,9 @@ cd ./Resources/pipeline/jenkins/build/
 - Refer
   - Resources/pipeline/jenkins/test/mvn.sh
 - Command to test
-  ```
-  docker run --rm -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine mvn test
-  ```
+```
+docker run --rm -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine mvn test
+```
 
 ## Test: Create a bash script to automate the test process
 - Refer
@@ -167,6 +164,7 @@ cd ./Resources/pipeline/jenkins/build/
 - Modify path of workspace folder in mvn.sh
 - Run script for test
 ```
+chmod 777 ./jenkins/test/mvn.sh
 ./jenkins/test/mvn.sh mvn test
 ```
 
