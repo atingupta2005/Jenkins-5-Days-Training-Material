@@ -3,7 +3,7 @@
 - Refer:
   - [Docker Setup Instructions](../6-Docker/001-Setup Docker.md)
 ## Docker (We will use this option)
-- Create Jenkins Home folder which will have jenkins data and the docker-compose.yaml file
+- Create Jenkins Home folder which will have jenkins data and the docker-compose.yml file
 ```
 cd ~
 mkdir jenkins-data
@@ -11,7 +11,7 @@ cd  jenkins-data
 mkdir jenkins_home
 ```
 - Create ~/jenkins-data/docker-compose.yml
-  - Refer to the file content from ./Resourses/1-Jenkins-Docker/docker-compose.yaml
+  - Refer to the file content from ./Resourses/1-Jenkins-Docker/docker-compose.yml
 - Build Docker Container
 ```
 docker-compose up -d

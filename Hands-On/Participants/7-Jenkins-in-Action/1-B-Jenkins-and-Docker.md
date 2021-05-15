@@ -7,17 +7,16 @@
 
  - Create a Docker container
   - Refer:
-    - Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources
-  - Move to directory - Dockerfile-CentOS-SSH
+    - ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources
   - Copy below 4 files from the directory Dockerfile-CentOS-SSH to ~/jenkins-data
     - docker-compose.yml
     - Dockerfile
     - remote-key
     - remote-key.pub
 ```
-cd Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/Dockerfile-CentOS-SSH
-cp docker-compose.yml Dockerfile remote-key remote-key.pub ~/jenkins_home
-cd ~/jenkins_home
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/Dockerfile-CentOS-SSH
+cp * ~/jenkins-data
+cd ~/jenkins-data
 docker-compose build
 docker-compose up -d
 docker ls
