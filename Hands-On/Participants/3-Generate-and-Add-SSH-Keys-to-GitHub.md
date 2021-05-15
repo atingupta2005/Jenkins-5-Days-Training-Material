@@ -2,9 +2,14 @@
  - If you want to access a private Git repo, for example at GitHub, you need to generate an ssh key-pair
  - Create a SSH key with the following command.
 ## Check if you have a key, you can run this command
- ```
- ssh-add -l
- ```
+```
+ssh-add -l
+
+# If any error occurs in above command then run
+eval `ssh-agent -s`
+ssh-add
+ssh-add -l
+```
 
 ## Create the SSH key (If you don't have the key)
 
@@ -28,7 +33,7 @@
  - Open Settings from Top Right on your Avatar
  - Select SSH and GPG keys
  - Click New SSH key
- - Enter a title in the field
+ - Enter a title in the field - ibm-ssh-key-1
  - Paste your public key into the Key field
  - Click Add SSH key
 
@@ -37,13 +42,13 @@
  ssh -T git@github.com
  ```
 
-## Add SSH Remote
+## Add SSH Remote (If required. We will do it later)
  - ----Warning: Make sure to take SSH URL from GitHub Repo and replace in command below ----
  ```
  git remote set-url origin <git@github.com:username/your-repository.git>
  ```
 
-## Push
+## Push (If required. We will do it later)
  ```
  git push
  ```

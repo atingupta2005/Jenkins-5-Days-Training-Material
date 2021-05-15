@@ -1,18 +1,18 @@
 # Installing Jenkins
+## Setup Docker (If required)
+- Refer:
+  - [Docker Setup Instructions](../6-Docker/001-Setup Docker.md)
 ## Docker
 ```
 docker network create jenkins
-docker run --name jenkins-docker --detach \
-  --privileged --network jenkins --network-alias docker \
-  --env DOCKER_TLS_CERTDIR=/certs \
-  --volume jenkins-docker-certs:/certs/client \
-  --volume jenkins-data:/var/jenkins_home \
-  --publish 2376:2376 8080:8080 122:22 docker:dind --storage-driver overlay2
-
-docker exec -it jenkins-docker bash
+docker run -d --name jenkins-docker --privileged -p 8081:8080 -p 50000:50000 jenkins/jenkins:lts-jdk11
 docker logs -f jenkins-docker
 
-Browse to http://localhost:8080
+docker exec -it jenkins-docker bash
+exit
+docker exec -it jenkins-docker cat /var/jenkins_home/secrets/initialAdminPassword
+
+Browse to http://localhost:8081
 ```
 
 ## Linux
@@ -38,6 +38,7 @@ sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sour
 sudo apt-get -y update
 sudo apt install -y jenkins
 systemctl status jenkins
+sudo systemctl enable jenkins
 ```
 
 ## Windows
