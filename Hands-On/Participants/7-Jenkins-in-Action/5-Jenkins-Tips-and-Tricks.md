@@ -17,18 +17,14 @@
  - Scroll Down and refer section - Global Properties
  - Enable - Environment Variables
  - Click Add
-  - Specify variable details
+  - Specify variable details - G_NAME
  - Save
  - Create new job named - "Project-Env"
  - Create shell script code
- ```
- echo $<custom variable name>
- ```
+```
+echo $G_NAME
+```
  - Build the job and inspect Console Output
-
-## Meet the Jenkins' cron: Learn how to execute Jobs automatically
- - Use the option - "Build Periodically" in Job
- - Specify cron syntax
 
 ## Learn how to trigger Jobs from external sources: Create a generic user
  - Open Manage Jenkins\Manage Users

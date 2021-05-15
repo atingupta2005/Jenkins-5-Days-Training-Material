@@ -5,8 +5,9 @@ services:
     image: jenkins/docker
     build:
       context: .
+      dockerfile: Dockerfile-Jenkins-with-docker
     ports:
-      - "18080:8080"
+      - "8081:8080"
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
       - "/var/docker/docker.sock:/var/docker/docker.sock"
@@ -16,9 +17,8 @@ services:
     container_name: remote-host
     image: remote-host
     build:
-      context: centos7
-    volumes:
-      - $PWD/aws-s3.sh:/tmp/script.sh
+      context: .
+      dockerfile: Dockerfile-remote-host
     networks:
       - net
 networks:

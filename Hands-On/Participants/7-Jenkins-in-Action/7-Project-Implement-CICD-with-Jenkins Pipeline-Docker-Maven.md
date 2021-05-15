@@ -9,8 +9,17 @@ exit
 ```
  - Let's create a new container having docker in it
  - Move inside Resources\pipleline folder
+ ```
+ cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+```
+- Copy Dockerfile and docker-compose.yml to ~/jenkins-data
+```
+ cp Dockerfile ~/jenkins-data/
+ cp docker-compose.yml ~/jenkins-data/
+ ```
  - Build Docker image
 ```
+cd ~/jenkins-data
 docker-compose build
 docker images | grep docker
 ```
