@@ -234,6 +234,7 @@ ssh-keygen -f /opt/prod
 ls /opt/prod
 cat /opt/prod
 cat /opt/prod.pub
+chown jenkins:root /opt/prod
 chmod 600 /opt/prod
 ```
 - Switch to new VM and add SSH public key to it

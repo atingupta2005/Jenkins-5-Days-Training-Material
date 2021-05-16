@@ -38,7 +38,7 @@ java -jar <path of the jar file>
 ## Displaying Test Results
  - Add Post Build Actions - Publish JUnit test result report
  - Test report XMLs: target/surefire-reports/*.xml
- - Save
+ - Save and Build
  - Open the Job and review the graph on home page
 
 ## Ignoring Tests
@@ -56,8 +56,7 @@ Goals: -B -DskipTests clean package
 
 ## Automated Acceptance Test with JUnit
  - Refer:
-  - https://github.com/education/autograding-example-java
-  - https://github.com/springframeworkguru/testing-java-junit5-gradle
+  - https://github.com/jabedhasan21/java-hello-world-with-gradle
  - Will show how to configure Gradle and Jenkins for automated JUnit testing and reporting
  - In order to build a quality gate, we will perform the JUnit tests before we build the executable JAR file
  - We do not want to create JAR files that are not functional
@@ -66,25 +65,22 @@ Goals: -B -DskipTests clean package
     - Jenkins
     - JUnit Plug-in
   - Install JUnit Plug-in
-  - Install ant, Gradle on Jenkins Server
-  - Create a job
+  - Create a job - named junit-testing
   - Specify any one project from GitHub URLs as specified above
   - Add Gradle test Task to Jenkins
     - Build\Invoke Grade Script
-      - Tasks: test jar
+      - Chose - Use Gradle Wrapper
+      - Tasks: clean check test jar
   - Build
   - Review Console Output
   - Add JUnit Test Result Reporting to Jenkins
-    - Install Jenkins JUnit Plugin
+    - Install "JUnit Plugin"
     - Configure Jenkins to collect and display the JUnit Test Results
       - Post-build Actions -> Publish JUnit test results report
-        - Test Report XMLs: **/build/test-results/test/TEST-*.xml
+        - Test Report XMLs: **/build/test-results/*.xml
     - Verify JUnit individual Test Reporting
-      - Modify Job to have below Gradle task:
-        - Tasks: clean check test jar
   - Build
-  - Click on the Tests Result link on the left
   - Verify JUnit Test Trend Reporting
     - On the project’s Status page, a Test Trend graph is automatically added, as soon as there are two or more tests available.
-    - For that, click on Build Now on the left for a second time and click ENABLE AUTO REFRESH on the upper right
+    - For that, click on Build Now on the left for a second time
     - After the second build is complete, the (hopefully) blue Test Result Trend graph is showing up on the project status page
