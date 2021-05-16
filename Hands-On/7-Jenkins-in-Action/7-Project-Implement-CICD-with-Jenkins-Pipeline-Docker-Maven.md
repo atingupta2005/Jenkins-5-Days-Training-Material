@@ -367,16 +367,17 @@ cat /tmp/.auth
 ```
 cd
 mkdir maven
+cd maven
 vim docker-compose.yml
-  version: '3'
-  services:
-    maven:
-      image: "atingupta2005/$IMAGE:$TAG"
-      container_name: maven-app
+version: '3'
+services:
+  maven:
+    image: "atingupta2005/$IMAGE:$TAG"
+    container_name: maven-app
 export IMAGE=$(sed -n '1p' /tmp/.auth)
 export TAG=$(sed -n '2p' /tmp/.auth)
 export PASS=$(sed -n '3p' /tmp/.auth)
-docker login -u atingupta2005 -p $PATH
+docker login -u atingupta2005 -p $PASS
 docker-compose up -d
 docker logs -f maven-app
 ```
@@ -388,34 +389,28 @@ docker logs -f maven-app
 - Specify docker login id in file - Resources/pipeline/jenkins/deploy/publish.sh
 - deploy.sh is having commands to transfer publish.sh to prod-vm
 - Move to Resources/pipeline
-- Run deploy.sh to transfer pusblish.sh and .auth files to prod-vm
 ```
 cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
+```
+- Modify deploy.sh to uncomment last few lines
+```
+vim ./jenkins/deploy/deploy.sh
+```
+- Run deploy.sh to transfer pusblish.sh and .auth files to prod-vm
+```
 ./jenkins/deploy/deploy.sh
-```
-- Run command on prod-vm.
-```
-cd ~/maven
-chmod 777 publish.sh
-./publish.sh
 ```
 
 ## Deploy: Execute the deploy script in the remote machine
-- Refer:
-  - Resources/pipeline/jenkins/deploy/publish.sh
-  - Resources/pipeline/jenkins/deploy/deploy.sh
-- The last line in deploy.sh is to execute command on prod-vm
-- Move to Resources/pipeline
-- Run deploy.sh
-```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
-./jenkins/deploy/deploy.sh
-```
+ - It's already handled in previous step
 
 ## Deploy: Add deploy script to Jenkinsfile
 - Refer:
   - Resources/pipeline/Jenkinsfile
 - Notice the command in the stage - deploy
+```
+cat Jenkinsfile
+```
 
 ## Create/Fork a Git Repository to store scripts and the code for the app
 - Refer
@@ -424,7 +419,7 @@ cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pip
 - Copy the URL of the forked Repo. It's needed while creating the Jenkins pipeline next
 
 ## Create the Jenkins Pipeline
-- Create a Jenkins pipeline named - pipeline-docker-maven
+- Create a Jenkins pipeline named - pipeline-maven
 - Project type should be - Pipeline
 - In Pipeline configuration
   - From combo box chose - Pipeline script from SCM
@@ -438,14 +433,14 @@ docker exec -it jenkins bash
 ```
 - Move to directory
 ```
-cd /home/jenkins/jenkins-data/jenkins_home/workspaces/pipeline-docker-maven
+cd ~/workspaces/pipeline-maven
 ````
   - Review the files in this directory
   - Code is downloaded in this directory when we build Jenkins Job
 
 ## Modify the path when mounting Docker volumes
 - Note the full path of your workspace folder. It should be in this format:
-  - /home/jenkins/jenkins-data/jenkins_home/workspace/pipeline-docker-maven
+  - /var/jenkins_home/workspace/pipeline-maven
 - We might need to modify mvn.sh to Specify the path for environment variable - WORKSPACE
   - Refer - Resources\pipeline\jenkins\build\mvn.sh
   - Refer - Resources\pipeline\jenkins\test\mvn.sh
@@ -459,7 +454,7 @@ vim ./jenkins/test/mvn.sh
 - We will create password for Docker registry in Jenkins
 - The is PASS environment variable which is being used in our pipeline script but it's not defined anywhere
 - So let's create password in Jenkins
-- Open Jenkins\Credentials
+- Open Manage Jenkins\Manage Credentials
 - Create a new Global Credential
   - Kind: Secret Text
   - Scope: Global
@@ -476,8 +471,11 @@ vim ./jenkins/test/mvn.sh
 - We need to save it to Jenkins server - /opt/prod
 - Run below command from host VM
 ```
+cd
+ls -al
 docker cp ~/prod jenkins:/opt/prod
 ```
+
 - Now connect to prod-vm from jenkins server container using the private key
 ```
 ssh -i /opt/prod prod-user@prod-vm
@@ -495,7 +493,7 @@ cat Jenkinsfile
 - Refer the post action in Build and Text stages of Jenkinsfile
 
 ## Execute Pipeline manually
-- Open Jenkins Pipeline - pipeline-docker-maven
+- Open Jenkins Pipeline - pipeline-maven
 - Click on Build
 - Review Console Output
 - Resolve if there are any errors
