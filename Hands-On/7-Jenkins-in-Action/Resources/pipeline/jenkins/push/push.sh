@@ -11,4 +11,4 @@ docker login -u atingupta2005 -p $PASS
 echo "*** Tagging image ***"
 docker tag $IMAGE:$BUILD_TAG atingupta2005/$IMAGE:$BUILD_TAG
 echo "*** Pushing image ***"
-docker push ricardoandre97/$IMAGE:$BUILD_TAG
+docker push atingupta2005/$IMAGE:$BUILD_TAG

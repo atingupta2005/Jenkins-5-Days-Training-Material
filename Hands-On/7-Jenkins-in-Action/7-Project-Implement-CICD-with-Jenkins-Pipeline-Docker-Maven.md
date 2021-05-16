@@ -178,7 +178,8 @@ chmod 777 ./jenkins/test/mvn.sh
   - [Steps to Setup Docker](../6-Docker/001-Setup-Docker.md)
 - Create a user in new VM:
 ```
-sudo useradd prod-user
+sudo adduser prod-user
+# Password: 1234
 ```
 - Switch to Jenkins Server and create a SSH key for New VM
 ```
@@ -218,6 +219,10 @@ exit
 
 
 ## Push: Push/Pull Docker images to Repository
+- Access Jenkins Server terminal
+```
+docker exec -it jenkins bash
+```
 - Login to Docker in jenkins server terminal, tag and push image
 ```
 docker login
@@ -236,13 +241,14 @@ docker pull atingupta2005/maven-project:1
   - Resources/pipeline/jenkins/push/push.sh
 - Specify login id in file - Resources/pipeline/jenkins/push/push.sh
 - Set environment variables
-  ```
-  export BUILD_TAG=1
-  export PASS=<your-docker-login-password>
-  ```
+```
+export BUILD_TAG=1
+export PASS=<your-docker-login-password>
+```
 - Run the push script
 ```
 cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
+chmod 777 ./jenkins/push/push.sh
 ./jenkins/push/push.sh
 ```
 
