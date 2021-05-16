@@ -1,16 +1,16 @@
 # Project: Implement CICD with Jenkins Pipeline Docker and Maven
 
 ## Learn how to install Docker inside of a Docker Container
- - Docker is currently not installed in jenkins container
+- Docker is currently not installed in jenkins container
 ```
 docker exec -it -u root jenkins bash
 docker ps
 exit
 ```
- - Let's create a new container having docker in it
- - Move inside Resources\pipleline folder
+- Let's create a new container having docker in it
+- Move inside Resources\pipleline folder
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
 ```
 - Copy Dockerfile and docker-compose.yml to ~/jenkins-data
 ```
@@ -18,7 +18,7 @@ cp Dockerfile-Jenkins-with-docker ~/jenkins-data/
 cp Dockerfile-remote-host ~/jenkins-data/
 cp docker-compose.yml ~/jenkins-data/
 ```
- - Build Docker image
+- Build Docker image
 ```
 cd ~/jenkins-data
 docker-compose build
@@ -38,20 +38,15 @@ docker exec -it jenkins bash
 docker ps
 ```
 
-## Login to Host OS
-```
-cd
-git clone https://github.com/atingupta2005/Jenkins-5-Days-Training-Material
-```
-
 ## Define the steps for Pipeline
-- Refer
+- Steps are already defined
+- Let's review the steps in Jenkinsfile
 ```
-cat ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/Jenkinsfile
+cat ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline/Jenkinsfile
 ```
 
 ## Build: Create a Jar for Maven App using Docker
- - Refer
+- Refer
   - Resources/pipeline
   - Resources/pipeline/java-app
  - Download docker maven image
@@ -59,9 +54,9 @@ cat ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action
 docker pull maven:3-alpine
 docker images
 ```
- - Create Maven container
+- Create Maven container
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
 docker run --rm -it -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine sh
 ```
 - Package app manually
@@ -73,7 +68,7 @@ exit
 
 - Modify container creation command to build jar
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
 docker run --rm -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine mvn -B -DskipTests clean package
 ls java-app/target/
 ```
@@ -83,7 +78,7 @@ ls java-app/target/
 - Move to folder Resources/pipeline
 - Run command
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
 chmod 777 ./jenkins/build/mvn.sh
 ./jenkins/build/mvn.sh mvn -B -DskipTests clean package
 ls java-app/target
@@ -93,7 +88,7 @@ ls java-app/target
 - Refer Resources/pipeline/jenkins/build/Dockerfile-java
 - Move to folder Resources/pipeline/jenkins/build/
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/jenkins/build/
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline/jenkins/build/
 ```
 - Copy jar file from target directory to Resources/pipeline/jenkins/build/
 ```
@@ -123,7 +118,7 @@ docker logs -f <container id>
   - Resources/pipeline/jenkins/build/docker-compose-build.yml
 - Build image using Docker compose
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/jenkins/build/
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline/jenkins/build/
 export BUILD_TAG=1
 docker-compose -f docker-compose-build.yml build
 ```
@@ -135,7 +130,7 @@ docker-compose -f docker-compose-build.yml build
   - Resources/pipeline/jenkins/build/build.sh
 - Move to the Resources/pipeline folder
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/pipeline/
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline/
 ```
 - Run build.sh to Build Image
 ```
@@ -161,7 +156,7 @@ docker run --rm -v $PWD/java-app:/app -v /root/.m2/:/root/.m2/ -w /app maven:3-a
 ## Test: Create a bash script to automate the test process
 - Refer
   - Resources/pipeline/jenkins/test/mvn.sh
-- Modify path of workspace folder in mvn.sh
+- If required, modify path of Workspace variable in mvn.sh
 - Run script for test
 ```
 chmod 777 ./jenkins/test/mvn.sh
@@ -172,13 +167,15 @@ chmod 777 ./jenkins/test/mvn.sh
 - Refer:
   - Resources/pipeline/jenkins/test
   - Resources/pipeline/Jenkinsfile
-- Notice the stage - Test having the code to run the tests
+- In Jenkinsfile, notice the stage - Test having the code to run the tests
 
 
 ## Create a remote machine to deploy containerized app
 - Create a new Ubuntu VM
 - Install Docker
 - Install docker-compose
+- To setup Docker and docker-compose, follow step:
+  - [Steps to Setup Docker](../6-Docker/001-Setup-Docker.md)
 - Create a user in new VM:
 ```
 sudo useradd prod-user
@@ -245,7 +242,8 @@ docker pull atingupta2005/maven-project:1
   ```
 - Run the push script
 ```
-sh Resources/pipeline/jenkins/push/push.sh
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
+./jenkins/push/push.sh
 ```
 
 
@@ -271,6 +269,7 @@ sh Resources/pipeline/jenkins/push/push.sh
 - Run commands
 ```
 export BUILD_TAG=<any build id>
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
 ./jenkins/build/build.sh
 docker images | grep maven
 ./jenkins/push/push.sh
@@ -279,7 +278,8 @@ docker images | grep maven
 - Move to Resources/pipeline/jenkins/deploy
 - Run commands
 ```
-./deploy.sh
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
+./jenkins/deploy/deploy.sh
 ```
 - Connect to prod-vm
 - Verify that file is created
@@ -313,6 +313,7 @@ docker logs -f maven-app
 - Move to Resources/pipeline
 - Run deploy.sh to transfer pusblish.sh and .auth files to prod-vm
 ```
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
 ./jenkins/deploy/deploy.sh
 ```
 - Run command on prod-vm.
@@ -330,6 +331,7 @@ chmod 777 publish.sh
 - Move to Resources/pipeline
 - Run deploy.sh
 ```
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/pipeline
 ./jenkins/deploy/deploy.sh
 ```
 
@@ -338,7 +340,7 @@ chmod 777 publish.sh
   - Resources/pipeline/Jenkinsfile
 - Notice the command in the stage - deploy
 
-## Create/Form a Git Repository to store scripts and the code for the app
+## Create/Fork a Git Repository to store scripts and the code for the app
 - Refer
   - https://github.com/atingupta2005/pipeline-maven.git
 - Fork the Repository
@@ -349,13 +351,20 @@ chmod 777 publish.sh
 - Project type should be - Pipeline
 - In Pipeline configuration
   - From combo box chose - Pipeline script from SCM
-  - Specify Pipeline(pipeline-maven) Repo URL
+  - Specify Repo URL of GitHub project named - pipeline-maven
+    - https://github.com/YourGitHubLoginID/pipeline-maven.git
 - Save
 - Build
-- Open shell of Jenkins server and refer to workspaces
-  - move to directory - /home/jenkins/jenkins-data/jenkins_home/workspaces/pipeline-docker-maven
+- Open shell of Jenkins server
+```
+docker exec -it jenkins bash
+```
+- Move to directory
+```
+cd /home/jenkins/jenkins-data/jenkins_home/workspaces/pipeline-docker-maven
+````
   - Review the files in this directory
-  - Code is downloaded in this directory
+  - Code is downloaded in this directory when we build Jenkins Job
 
 ## Modify the path when mounting Docker volumes
 - Note the full path of your workspace folder. It should be in this format:
@@ -363,7 +372,7 @@ chmod 777 publish.sh
 - We might need to modify mvn.sh to Specify the path for environment variable - WORKSPACE
   - Refer - Resources\pipeline\jenkins\build\mvn.sh
   - Refer - Resources\pipeline\jenkins\test\mvn.sh
-- Commit and push the changes
+- Commit and push the changes done in our GitHub repo - pipeline-maven.git
 
 ## Create the Registry Password in Jenkins
 - We will create password for Docker registry in Jenkins
@@ -377,11 +386,11 @@ chmod 777 publish.sh
   - ID: registry-pass
 - Modify Jenkinsfile to extract password from Jenkins server
   - We have already done this
-  - Refer to the section - environment in Jenkinsfile
+  - In Jenkinsfile, refer to the section - environment
 - Commit and push the changes
   - It's not required as Jenkinsfile is already updated
 
-## Add the private ssh key to the Jenkins container
+## Add the private SSH key to the Jenkins container
 - We might have saved our Private key to connect to the prod-vm in the host machine
 - We need to save it to Jenkins server - /opt/prod
 - Run below command from host VM
@@ -418,6 +427,7 @@ docker logs <container-id>
 ## Create a Git Hook to automatically trigger Pipeline
 - Now whenever we do code push to github, we need to trigger pipeline automatically
 - We have already done that for another repo, follow the same steps on our github repo
+  - [Integrate GitHub with Jenkins](../4-Integrating-GitHub-with-Jenkins.md)
 - We need to add hook in GitHub repo - pipeline-maven
 
 ## Start the CI/CD process by committing new code to Git!

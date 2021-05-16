@@ -28,7 +28,7 @@ Cloud VM is needed with 8 GB RAM and 4 Core processor. OS: Ubuntu: 18.0.4 LTS
    1. Integrate GIT with Jenkins
    1. Git vs GITHub
    1. Create account on GitHub
-   1. Create Repo on Github
+   1. Create Repo on GitHub
    1. Clone GitHub repo
 1. Plugins and its uses
    1. Learning Objective

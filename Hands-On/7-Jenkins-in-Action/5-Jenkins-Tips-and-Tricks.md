@@ -58,7 +58,7 @@ echo $G_NAME
 
 ## Trigger Jobs from Bash Scripts (No parameters)
  - Refer Resourses\crumb.sh
- - Right mouse clink on Build and copy the link
+ - Right mouse click on Build and copy the link
  - Run first command to collect crumb token on the Jenkins machine terminal
  - Run second command after replacing the URL with the one copied
  - Make sure build has started in Jenkins Portal

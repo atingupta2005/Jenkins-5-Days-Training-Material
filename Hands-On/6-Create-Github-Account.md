@@ -1,4 +1,4 @@
-# Create Github Account
+# Create GitHub Account
 
 - Visit - https://github.com/join in a web browser.
 - Sign Up

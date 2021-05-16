@@ -3,18 +3,20 @@
 
 ## Docker + Jenkins + SSH
  - Clone Project
-  - git clone https://github.com/atingupta2005/Jenkins-5-Days-Training-Material
-
+```
+git clone https://github.com/atingupta2005/Jenkins-5-Days-Training-Material
+```
  - Create a Docker container
   - Refer:
-    - ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources
+    - ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources
   - Copy below 4 files from the directory Dockerfile-CentOS-SSH to ~/jenkins-data
     - docker-compose.yml
     - Dockerfile
     - remote-key
     - remote-key.pub
+
 ```
-cd ~/Jenkins-5-Days-Training-Material/Hands-On/Participants/7-Jenkins-in-Action/Resources/Dockerfile-CentOS-SSH
+cd ~/Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/Resources/Dockerfile-CentOS-SSH
 cp * ~/jenkins-data
 cd ~/jenkins-data
 chmod 400 remote-key

@@ -1,4 +1,6 @@
-# Setting Up Oracle and Maven on Slave
+# Setting Up Oracle and Maven on Slave (Optional)
+ - We have already seen these steps in [3-Continuous-Integration-Setup](3-Continuous-Integration-Setup.md)
+ - In case more slave nodes are needed, putting steps to create slave node in this separate file again
 ## Create a Docker container
 ```
 sudo docker run -dit --name my_jenkins_slave_? --privileged=true -p 88??:8080 -p 22?:22 --network jenkins-data_net atingupta2005/tomcat_jenkins_ubuntu

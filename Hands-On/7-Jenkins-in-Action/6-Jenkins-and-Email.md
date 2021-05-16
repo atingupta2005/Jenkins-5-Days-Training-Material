@@ -6,6 +6,7 @@
 ## Integrate Jenkins and Gmail
  - Open - Manage Jenkins\Configure System
  - Refer to section - E-mail Notification
+```
   - SMTP Server: smtp.gmail.com
   - User SMTP Authentication: Enable
   - User Name: <your email id>
@@ -14,6 +15,7 @@
   - SMTP Port: 465
   - Reply-To-Address:
   - Charset: UTF-8
+```
  - Enable gmail option - "Less Secure Apps"
  - Test configuration by sending test e-mail: Enable
  - Test e-mail recipient: <your email id>

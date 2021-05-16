@@ -1,7 +1,7 @@
 # Git
 
 ## Installing Git
-### Linux
+### Linux (Ubuntu)
 ```
 git --version
 sudo apt install git-all
@@ -197,7 +197,7 @@ git merge new_feature_2
 git branch -d new_feature_2
 ```
 
-### SUPPRESS TRACKING
+### Supress Tracking
 
 - A text file named .gitignore suppresses accidental versioning of files and paths matching the specified pattern
 ```
@@ -223,7 +223,7 @@ git remote add <remote name> <remote address>
 git push origin master
 ```
 
- - Open Github to inspect the changes
+ - Open GitHub to inspect the changes
 
  - Now do some changes in github
 

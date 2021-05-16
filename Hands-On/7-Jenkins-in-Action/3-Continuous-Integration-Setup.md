@@ -24,29 +24,24 @@
 - Your GitHub repository is integrated with your Jenkins project.
 - Add Build Step - Invoke top-level maven targets
   - Goals: clean package
-- You can now edit any of the files found in the GitHub repository and trigger the Jenkins job to run with every code commit.
-- Do changes in Git Repository and the build will be triggered automatically
+- Change Source Code in Git Repository and the build will be triggered automatically
 
 ## Triggering the Jenkins Job to Run with Every Code Commit
 - Go to your GitHub repository, edit the code and commit the changes.
 - We will now see how Jenkins ran the script after the commit.
 - Go back to your Jenkins project and you'll see that a new job was triggered automatically from the commit we made at the previous step.
-- Click on the little arrow next to the job and choose 'Console Output'.
+- Review 'Console Output'.
 - You can see that Jenkins was able to pull the latest code and run it!
 
-- Every time you publish your changes to GitHub, GitHub will trigger your new Jenkins job.
+- Every time you publish your changes to GitHub, it will trigger your new Jenkins job.
 
 
-## Code Packaging automation
-- Source Code on GitHub: https://github.com/atingupta2005/java-servlet-hello
+## Code Packaging automation (Optional)
+- We will follow below manual steps to understand how mvn can be used to build java project
 - Login to Jenkins Server
-- Move to your base directory
-```
-cd
-```
-
 - Clone
 ```
+cd
 git clone https://github.com/atingupta2005/java-servlet-hello
 cd java-servlet-hello
 ```
@@ -65,6 +60,7 @@ mvn clean package
 - Let's begin by first creating a Freestyle project in Jenkins
 - Use Project Name – "Compile"
 - When you scroll down you will find an option to add source code repository, select "git" and add the repository URL
+  - https://github.com/atingupta2005/java-servlet-hello
 - Now we will add a Build Trigger
 - Pick the poll SCM option
  - H/5 * * * *
@@ -79,29 +75,34 @@ clean compile
 
 
 
-##Step 2 — Test the Source Code
+## Step 2 — Test the Source Code
 - Now we will create one more Freestyle Project for unit testing.
 - Project Name - Test
 - Add the same repository URL in the source code management tab, like we did in the previous job.
-- Now, in the "Build Trigger" tab click on the "build after other projects are built"
-- Select the project - compile
+  - https://github.com/atingupta2005/java-servlet-hello
+- Now, in the "Build Trigger" tab click on the "Build after other projects are built"
+- Select the project - Compile
 - In the Build tab, click on invoke top level maven targets and use the below command:
-  - test
+```
+test
+```
 
 - Again, save it and click on Build Now.
 
 
 ## Step 3 — Creating a JAR File and Deploying
-- Create one more freestyle project and add the source code repository URL.
+- Create one more freestyle project and add the source code repository URL
 - Then in the build trigger tab, select build when other projects are built
 - Select the project - Test
 - Project Name – "Create Jar"
 - In the build tab, select Execute Shell
 - Type the below command to package the application:
-  - mvn package
+```
+mvn package
+```
 - Before we can deploy to Tomcat, we need to setup a Tomcat Server.
-- For detailed instructions on how to setup Tomcat, please refer to the PPT:
-  - "A-Setup-Tomcat-Server-Run-from-Docker-Image.md"
+- For detailed instructions on how to setup Tomcat, please refer to:
+  - A-Setup-Tomcat-Server-Run-from-Docker-Image.md
 
 ## Step 4 – Configure Jenkins
 - Install Jenkins Plugins:
@@ -137,12 +138,14 @@ clean compile
 ## Step 5 — Creating a WAR File and Deploying
 - Post Build Actions Tab
 - Send Build Artifacts on SSH:
-  - Source Files: **/*.war
+  - Source Files: \*\*/*.war
   - In Exec command field:
-    - cp ./tomcat/*.war /opt/apache-tomcat-8.5.58/webapps
-    - /opt/apache-tomcat-8.5.58/bin/shutdown.sh
-    - /opt/apache-tomcat-8.5.58/bin/startup.sh
 
+```
+cp ./tomcat/*.war /opt/apache-tomcat-8.5.58/webapps
+/opt/apache-tomcat-8.5.58/bin/shutdown.sh
+/opt/apache-tomcat-8.5.58/bin/startup.sh
+```
 - Open Advanced and enable the option – "Flatten Files"
 - The above will copy all war files to tomcat container in /opt/apache-tomcat-8.5.58/webapps
 
@@ -160,7 +163,7 @@ clean compile
 ### Create a Ubuntu Machine
 - There are two ways of authentication for setting up the Jenkins slaves.
   - Using username and password
-  - Using ssh keys.
+  - Using SSH keys
 
 - Jenkins Slave Prerequisites
   - Java should be installed on your slave machine.
@@ -183,12 +186,12 @@ ssh root@localhost -p 222	# password 123456
 # Check if Java and maven are already installed?
 java -version
 mvn -v
-
-#Only if needed
+```
+- Only if needed
+```
 apt install -y maven
 apt install -y openjdk-8-jdk
 ```
-
 
 ### Create a Jenkins User in Docker Container Slave
 - It is recommended to execute all Jenkins jobs as jenkins user on the slave nodes.
@@ -210,9 +213,13 @@ mkdir ~/jenkins_slave
 ```
 
 ## Setting up Jenkins slaves using username/password
-- Head over to Jenkins dashboard -> Manage Jenkins -> Manage Nodes and Couds
+- Head over to Jenkins dashboard -> Manage Jenkins -> Manage Nodes and Clouds
 - Select new node option.
 - Give it a name, select the "permanent agent" option and click ok.
+- Add Credentials
+ - Add credentials using Manage Credentials in Jenkins
+  - Go to jenkins dashboard -> manage jenkins -> manage credentials -> Global credentials -> add credentials
+
 - Fill the options as below:
 ```
 # of executors: 2
@@ -221,8 +228,7 @@ Labels: ubuntu_slave1
 Usage: Only build jobs with .........
 Launch method: Launch agents via SSH
 Host: my_jenkins_slave
-Credentials: jenkins/****			#First need to add credentials if not already
-									#For credential box, click the add button and enter the slaves jenkins username and password
+Credentials: jenkins/****
 Host Ket Verification Strategy: Non verifying verification strategy
 ```
 
@@ -233,7 +239,7 @@ Host Ket Verification Strategy: Non verifying verification strategy
 - Create a new Free Style Project named - project-slave-node-1
 - Enable - General\"Restrict where the project can be run"
 
-### Setting up Jenkins slaves using ssh keys
+### Setting up Jenkins slaves using SSH keys
 - Create a new Docker Container
 ```
 sudo docker run -dit --name my_jenkins_slave_2 --privileged=true -p 8890:8080 -p 223:22 --network jenkins-data_net atingupta2005/tomcat_jenkins_ubuntu
@@ -274,7 +280,7 @@ cat id_rsa.pub > ~/.ssh/authorized_keys
 
 ### Setup slaves from Jenkins master
 - Follow the first 3 steps we did for slave configuration using username and password.
-- Follow all the configuration in the 4th step. But this time, for the launch method, select the credential you created with the ssh key.
+- Follow all the configuration in the 4th step. But this time, for the launch method, select the credential you created with the SSH key.
 
 
 ### Test the slaves

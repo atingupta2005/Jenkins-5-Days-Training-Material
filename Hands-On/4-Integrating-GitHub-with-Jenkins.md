@@ -1,8 +1,8 @@
 # Integrating GitHub with Jenkins
-- Install GitHub Jenkins plugin (If not already installed)
-  - Go to Manage Jenkins -> Manager Plugin
-  - Search Github Plugin in the Installed tab. If its there then no need to install it
-  - Search Github Plugin in the Available tab then click on Download now and install after the restart
+- Install GitHub plugin in Jenkins (If not already installed)
+  - Go to Manage Jenkins -> Manage Plugin
+  - Search GitHub Plugin in the Installed tab. If its there then no need to install it
+  - Search GitHub Plugin in the Available tab then click on Download now and install after the restart
 
 - Install Maven Plugin
   - Go to Jenkins- Manage Plugins
@@ -12,7 +12,7 @@
   - Login to Jenkins Server console
     - If it's a Docker Container
       ```
-      docker exec -it -u root jenkins-docker bash
+      docker exec -it -u root jenkins bash
       ```
   - Install maven
     ```
@@ -21,7 +21,7 @@
     ```
 -  Integrate Jenkins with GitHub
   - Go to Manage Jenkins\Configure System - Go to GitHub section
-  - Go to Github Repository- click on settings- Go to webhook and click Add Webhook
+  - Go to GitHub Repository- click on settings- Go to webhook and click Add Webhook
   - In the ‘Payload URL’ field, paste your Jenkins environment URL
   - At the end of this URL add /github-webhook/
   - In the ‘Content type’ select: ‘application/json’ and leave the ‘Secret’ field empty.
@@ -36,4 +36,4 @@
   - Build\Invoke top level maven targets
     - Goals: clean package
   - Post Build Actions\Archive the Artifacts
-    - Files to archive: **/*.jar
+    - Files to archive: \*\*/\*.jar

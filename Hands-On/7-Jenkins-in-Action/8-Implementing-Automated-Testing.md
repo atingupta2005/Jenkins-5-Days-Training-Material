@@ -1,16 +1,12 @@
 # Implementing Automated Testing
 
 ## Automating Your Unit and Integration Tests
-- Create Maven Project
+- Create Maven Project named - simple-java-maven-app
 - Repo URL:
   - https://github.com/atingupta2005/simple-java-maven-app.git
 - Add Build Step
   - Invoke Top level Maven Targets
-    - Maven Version: Select from Combo Box
     - Goals: -B -DskipTests clean package
- - Add Build Step
-    - Maven Version: Select from Combo Box
-    - Goals: test
  - Save
  - Build
  - Review the Console Output
@@ -27,7 +23,7 @@
  - Review the console output of last Build
  - Copy the path of Jar File
  - Verify the Jar file is available in Jenkins server
- - Add Build Step - Execute Shell and put below code
+ - Add another Build Step - Execute Shell and put below code
 ```
 java -jar <path of the jar file>
 ```
@@ -36,14 +32,14 @@ java -jar <path of the jar file>
 
 ## Configuring Test Reports in Jenkins
  - Add Build Step
-
+  - Invoke Top level Maven Targets
+    - Goals: test
 
 ## Displaying Test Results
  - Add Post Build Actions - Publish JUnit test result report
  - Test report XMLs: target/surefire-reports/*.xml
  - Save
- - Open the Jon and review the graph on home page
-
+ - Open the Job and review the graph on home page
 
 ## Ignoring Tests
 Goals: -B -DskipTests clean package
@@ -90,5 +86,5 @@ Goals: -B -DskipTests clean package
   - Click on the Tests Result link on the left
   - Verify JUnit Test Trend Reporting
     - On the project’s Status page, a Test Trend graph is automatically added, as soon as there are two or more tests available.
-    - For that, click on „Build Now“ on the left for a second time and click ENABLE AUTO REFRESH on the upper right
+    - For that, click on Build Now on the left for a second time and click ENABLE AUTO REFRESH on the upper right
     - After the second build is complete, the (hopefully) blue Test Result Trend graph is showing up on the project status page

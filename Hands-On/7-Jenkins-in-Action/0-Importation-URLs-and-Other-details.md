@@ -10,17 +10,15 @@
 ### You VM IP:
 - <YourVMIP>
 - Jenkins:
-  - http:// <YourVMIP> :8080/
+  - http://YourVMIP:8080/
 - UserName/ Password:
   - atin / 123456
 - Tomcat Server:
-  - http:// <YourVMIP> :8888/
+  - http://YourVMIP:8888/
 - Username / Password
   - tomcat / s3cret
 - Tomcat Deployed App
   - http://52.188.53.135:8888/hello/
-
-
 
 ### Other Connectivity details
 - Tomcat Server
@@ -39,7 +37,8 @@
 221
 222
 8080
-8081
+8080
 8888
 223
+224
 ```

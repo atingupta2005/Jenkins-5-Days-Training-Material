@@ -1,7 +1,8 @@
 # Installing Jenkins
 ## Setup Docker (If required)
 - Refer:
-  - [Docker Setup Instructions](../6-Docker/001-Setup Docker.md)
+  - [Docker Setup Instructions](6-Docker/001-Setup-Docker.md)
+
 ## Docker (We will use this option)
 - Create Jenkins Home folder which will have jenkins data and the docker-compose.yml file
 ```
@@ -22,10 +23,9 @@ exit
 docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
-Browse to http://localhost:8081
-```
+Browse to http://localhost:8080
 
-## Linux
+## Installing Jenkins on Ubuntu Linux
  - Checking and Installing Java
 ```
 java -version
@@ -51,11 +51,6 @@ sudo systemctl enable jenkins
 ```
 
 ## Windows
- - Download from - https://www.jenkins.io/download/#downloading-jenkins
+ - Download from
+  - https://www.jenkins.io/download/#downloading-jenkins
  - Run the setup
-
-## Set up Jenkins
- - Visit: http://your_ip_or_domain:8080
-
-   - Take password:
-     - sudo cat /var/lib/jenkins/secrets/initialAdminPassword
