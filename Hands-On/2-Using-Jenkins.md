@@ -33,7 +33,7 @@ service jenkins restart
 ```
 H/15 * * * *
 ```
- - Add a build step in the Build section - Schell Script
+ - Add a build step in the Build section - Shell Script
 ```
     - echo "Hello World"
 ```

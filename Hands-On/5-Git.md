@@ -197,7 +197,7 @@ git merge new_feature_2
 git branch -d new_feature_2
 ```
 
-### Supress Tracking
+### Suppress Tracking
 
 - A text file named .gitignore suppresses accidental versioning of files and paths matching the specified pattern
 ```
@@ -207,7 +207,7 @@ git branch -d new_feature_2
   temp-*
 ```
 
-## Git Remore
+## Git Remote
  - The full address of that remote can be viewed with:
 ```
 git remote -v

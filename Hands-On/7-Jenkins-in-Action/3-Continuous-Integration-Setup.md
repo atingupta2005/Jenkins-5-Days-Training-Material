@@ -229,7 +229,7 @@ Usage: Only build jobs with .........
 Launch method: Launch agents via SSH
 Host: my_jenkins_slave
 Credentials: jenkins/****
-Host Ket Verification Strategy: Non verifying verification strategy
+Host Key Verification Strategy: Non verifying verification strategy
 ```
 
 - Click on Save

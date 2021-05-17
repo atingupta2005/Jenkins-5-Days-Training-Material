@@ -110,7 +110,7 @@ MINUTE: Minutes in one hour (0-59)
 HOURS: Hours in one day (0-23)
 DAYMONTH: Day in a month (1-31)
 MONTH: Month in a year (1-12)
-DAYWEEK: Day of the week (0-7) where 0 and 7 are sunday
+DAYWEEK: Day of the week (0-7) where 0 and 7 are Sunday
 Example: H/2 * * * * (schedule your build for every 2 minutes)
 ```
 #### Try this example:
