@@ -5,7 +5,7 @@
     - https://pypi.org/project/notedown/
   - Commands
 ```
-sudo apt-get install python3-venv
+sudo apt install -y python3-venv
 pip install virtualenv
 python3 -m venv ~/mypythonvenv
 source ~/mypythonvenv/bin/activate
