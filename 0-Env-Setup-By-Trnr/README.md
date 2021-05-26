@@ -51,7 +51,8 @@ done
 - Install Libre Office
 ```
 sudo apt install software-properties-common
-apt-add-repository -y ppa:libreoffice/ppa
+sudo apt install -y zip
+sudo apt-add-repository -y ppa:libreoffice/ppa
 sudo apt update && sudo apt install libreoffice
 ```
 - From PPT to PDF - Use libreoffice directly
@@ -64,7 +65,7 @@ soffice --headless --convert-to pdf test.pptx
   - Apart from soffice, we can also use unoconv. Install related package first:
 ```
 deactivate
-apt update && apt install python3-uno unoconv
+sudo apt -y update && sudo apt -y install python3-uno unoconv
 ```
 
  - Then use unoconv to convert pptx to pdf:
