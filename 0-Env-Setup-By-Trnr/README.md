@@ -20,8 +20,9 @@ jupyter notebook --ip=0.0.0.0
  - Refer: https://github.com/shellinabox/shellinabox
  - Refer: https://linoxide.com/web-remote-your-server/
 ```
-sudo apt-get install openssl
-sudo apt-get install shellinabox
+sudo apt -y update
+sudo apt -y install openssl
+sudo apt -y install shellinabox
 sudo /etc/init.d/shellinabox start
 sudo vi /etc/default/shellinabox
   - Modify to: SHELLINABOX_ARGS="--no-beep --disable-ssl"
