@@ -35,6 +35,7 @@ man shellinaboxd
 ## Setup multiple users in Ubuntu
 - For each participant, we need to setup login accounts
 ```
+sudo groupadd docker
 for ((i=1;i<=30;i++)); do
 	export username="u$i"
 	sudo useradd -g docker -m -p "p" $username;sudo usermod -aG sudo $username;echo $username:p | sudo /usr/sbin/chpasswd;sudo chown -R  $username:root /home/$username
