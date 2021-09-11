@@ -12,6 +12,7 @@ source ~/mypythonvenv/bin/activate
 pip install notedown
 cd Jenkins-5-Days-Training-Material/Hands-On/7-Jenkins-in-Action/
 notedown 1-A-Getting-Started-with-Jenkins.md > out.ipynb
+find . -name  *.md -type f -exec sh -c  "notedown {} >  {}.ipynb" \;
 pip install jupyter
 jupyter notebook --ip=0.0.0.0
 ```
