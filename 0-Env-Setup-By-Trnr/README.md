@@ -25,8 +25,8 @@ sudo apt -y update
 sudo apt -y install openssl
 sudo apt -y install shellinabox
 sudo /etc/init.d/shellinabox start
-sudo vi /etc/default/shellinabox
-  - Modify to: SHELLINABOX_ARGS="--no-beep --disable-ssl"
+sudo sed -i 's/SHELLINABOX_ARGS="--no-beep"/SHELLINABOX_ARGS="--no-beep --disable-ssl"/g' /etc/default/shellinabox
+cat /etc/default/shellinabox
 sudo /etc/init.d/shellinabox restart
 man shellinaboxd
 ```
